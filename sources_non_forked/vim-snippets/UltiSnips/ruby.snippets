@@ -21,7 +21,7 @@ endglobal
 # Snippets
 #
 
-snippet "^#!" "#!/usr/bin/env ruby" r
+snippet #! "#!/usr/bin/env ruby" b
 #!/usr/bin/env ruby
 $0
 endsnippet
@@ -302,12 +302,12 @@ endsnippet
 snippet "\b(case|sw(itch)?)" "case <variable> when <expression> ... end" r
 case ${1:variable}
 when ${2:expression}
-$0
+  $0
 end
 endsnippet
 
 snippet class "class <class_name> def initialize ... end end"
-class ${1:class_name}
+class ${1:`!p snip.rv = snip.basename.title().replace('_', '')`}
 	def initialize(${2:*args})
 		$0
 	end
@@ -315,7 +315,7 @@ end
 endsnippet
 
 snippet module "module"
-module ${1:module_name}
+module ${1:`!p snip.rv = snip.basename.title().replace('_', '')`}
 	$0
 end
 endsnippet
@@ -324,6 +324,18 @@ snippet ###
 =begin
 	$0
 =end
+endsnippet
+
+snippet priv "private " m
+private
+
+$0
+endsnippet
+
+snippet prot "protected" m
+protected
+
+$0
 endsnippet
 
 # vim: set ts=2 sw=2 expandtab:

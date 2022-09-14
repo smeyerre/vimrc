@@ -1,7 +1,7 @@
 ## Main
 # main
 snippet main
-	int main(int argc, const char *argv[])
+	int main(int argc, char *argv[])
 	{
 		${0}
 		return 0;
@@ -48,6 +48,17 @@ snippet once
 	${0}
 
 	#endif /* end of include guard: $1 */
+# Disable C++ name mangling in C headers
+snippet nocxx
+	#ifdef __cplusplus
+	extern "C" {
+	#endif
+
+	${0}
+
+	#ifdef __cplusplus
+	} /* extern "C" */
+	#endif
 ##
 ## Control Statements
 # if
@@ -187,13 +198,13 @@ snippet dfun2
 	{
 		${12}
 	}
-# function definition with two parameters
+# function definition with three parameters
 snippet fun3
 	${1:void} ${2:function_name}(${3:Type} ${4:Parameter}, ${5:Type} ${6:Parameter}, ${7:Type} ${8:Parameter})
 	{
 		${9}
 	}
-# function definition with two parameters with  Doxygen documentation
+# function definition with three parameters with  Doxygen documentation
 snippet dfun3
 	/*! \brief ${1:Brief function description here}
 	 *
@@ -323,6 +334,33 @@ snippet getopt
 			${0}
 		}
 	}
+
+## Assertions
+snippet asr
+	assert(${1:condition});
+
+snippet anl
+	assert(${1:ptr} != NULL);
+
+## Dynamic Allocation
+snippet mlc
+	${1:ptr} = (${2:type}*) malloc(sizeof($2));
+
+snippet clc
+	${1:ptr} = (${2:type}*) calloc(${3:size}, sizeof($2));
+
+snippet rlc
+	${1:ptr} = realloc($1, ${2:size} * sizeof(${3:type}));
+
+snippet mlcd
+	${1:type} ${2:ptr} = ($1*) malloc(sizeof($1));
+
+snippet clcd
+	${1:type} ${2:ptr} = ($1*) calloc(${3:size}, sizeof($1));
+
+snippet fre
+	free(${1:ptr});
+
 ##
 # TODO section
 snippet todo
@@ -333,3 +371,10 @@ snippet todo
 # This is kind of convenient
 snippet .
 	[${1}]
+
+snippet asm
+	__asm__ __volatile__(
+	"${0}\n\t"
+	:
+	:
+	);
